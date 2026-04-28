@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 56" role="img" aria-label="Marblism Partners">
+  <defs>
+    <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#14B8A6"/>
+      <stop offset="100%" stop-color="#06B6D4"/>
+    </linearGradient>
+    <radialGradient id="marble" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#fff" stop-opacity="0.7"/>
+      <stop offset="60%" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <g>
+    <rect x="2" y="6" width="44" height="44" rx="14" fill="url(#lg)"/>
+    <circle cx="18" cy="22" r="7" fill="#fff" opacity="0.95"/>
+    <circle cx="32" cy="36" r="9" fill="#fff" opacity="0.82"/>
+    <rect x="2" y="6" width="44" height="44" rx="14" fill="url(#marble)"/>
+  </g>
+  <text x="58" y="36" font-family="Inter, system-ui, sans-serif" font-weight="700" font-size="22" fill="#0a1224" letter-spacing="-0.02em">
+    Marblism<tspan fill="#14B8A6"> Partners</tspan>
+  </text>
+</svg>

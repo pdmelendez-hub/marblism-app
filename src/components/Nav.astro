@@ -2,15 +2,14 @@
 ---
 <header class="nav">
   <div class="container nav-inner">
-    <a href="/" class="brand">
-      <span class="logo" aria-hidden="true"></span>
-      <span class="brand-name">Marblism Partners</span>
+    <a href="/" class="brand" aria-label="Marblism Partners — home">
+      <img src="/logo.svg" alt="Marblism Partners" height="32" width="auto" />
     </a>
     <nav aria-label="Primary">
-      <a href="#services">Services</a>
+      <a href="#team">AI Team</a>
       <a href="#use-cases">Use Cases</a>
       <a href="#process">Process</a>
-      <a href="#contact" class="btn btn-primary nav-cta">Book a call</a>
+      <a href="#contact" class="btn btn-primary nav-cta">Hire your team</a>
     </nav>
   </div>
 </header>
@@ -30,21 +29,9 @@
     justify-content: space-between;
     padding: 16px 24px;
   }
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: var(--ink);
-    font-weight: 700;
-  }
+  .brand { display: flex; align-items: center; }
   .brand:hover { text-decoration: none; }
-  .logo {
-    width: 28px;
-    height: 28px;
-    border-radius: 8px;
-    background: linear-gradient(135deg, var(--accent), var(--accent-2));
-    box-shadow: var(--shadow-md);
-  }
+  .brand img { display: block; height: 32px; width: auto; }
   nav a {
     color: var(--ink-2);
     margin-left: 24px;

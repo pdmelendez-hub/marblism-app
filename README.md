@@ -11,6 +11,17 @@ npm run build    # outputs to ./dist
 npm run preview  # preview the production build
 ```
 
+## Hooking up the contact form (Formspree)
+
+The form posts to Formspree (free, no backend). To activate:
+
+1. Sign up at [formspree.io](https://formspree.io) (free tier: 50 submissions/month).
+2. Create a new form, copy the form ID (the part after `/f/` in the action URL).
+3. Open `src/components/Contact.astro` and replace `your-formspree-id` with your ID.
+4. Set the form's notification email in Formspree to where you want leads delivered.
+
+If you'd rather use Cloudflare Pages Functions + Resend for a fully self-hosted form, ask and I'll wire that path instead.
+
 ## Editing copy
 
 - Brand name: `src/components/Nav.astro`, `src/components/Footer.astro`

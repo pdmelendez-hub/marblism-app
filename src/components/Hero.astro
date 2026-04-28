@@ -4,38 +4,48 @@
   <div class="container hero-grid">
     <div>
       <span class="eyebrow">Strategic Marblism Partner</span>
-      <h1>AI that pays for itself, <span class="grad">built for small business</span>.</h1>
+      <h1>AI Employees clock in. <span class="grad">You cash out.</span></h1>
       <p class="lead">
-        We help small businesses adopt Marblism AI — custom agents, automations, and apps
-        that take busywork off your plate, sharpen your sales pipeline, and unlock real growth.
+        Hire your first AI team in days, not months. We help small businesses deploy Marblism's
+        AI Employees — Penny, Eva, Sonny, Stan, Rachel, Linda — to handle the work that's
+        eating your week.
       </p>
       <div class="cta-row">
-        <a href="#contact" class="btn btn-primary">Book a free consult</a>
-        <a href="#use-cases" class="btn btn-ghost">See use cases →</a>
+        <a href="#contact" class="btn btn-primary">Hire your AI team</a>
+        <a href="#team" class="btn btn-ghost">Meet the team →</a>
       </div>
       <ul class="trust">
-        <li>✓ No-code &amp; custom builds</li>
-        <li>✓ Live in days, not months</li>
-        <li>✓ ROI-focused engagements</li>
+        <li>✓ Live in days</li>
+        <li>✓ No code, no bloat</li>
+        <li>✓ Pays for itself in week one</li>
       </ul>
     </div>
     <div class="art" aria-hidden="true">
       <div class="orb orb-1"></div>
       <div class="orb orb-2"></div>
       <div class="card card-1">
-        <div class="card-dot"></div>
-        <div class="card-line w-70"></div>
-        <div class="card-line w-50"></div>
+        <div class="avatar a-1">E</div>
+        <div class="meta">
+          <strong>Eva</strong>
+          <span>Drafted 12 replies</span>
+        </div>
+        <span class="status">●</span>
       </div>
       <div class="card card-2">
-        <div class="card-pill">AI Agent</div>
-        <div class="card-line w-80"></div>
-        <div class="card-line w-60"></div>
-        <div class="card-line w-40"></div>
+        <div class="avatar a-2">S</div>
+        <div class="meta">
+          <strong>Stan</strong>
+          <span>Booked 3 demos</span>
+        </div>
+        <span class="status">●</span>
       </div>
       <div class="card card-3">
-        <div class="card-bar"><span style="width: 78%"></span></div>
-        <div class="card-meta">+78% lead response</div>
+        <div class="avatar a-3">P</div>
+        <div class="meta">
+          <strong>Penny</strong>
+          <span>Published 2 blogs</span>
+        </div>
+        <span class="status">●</span>
       </div>
     </div>
   </div>
@@ -45,8 +55,8 @@
   .hero {
     padding: 96px 0 88px;
     background:
-      radial-gradient(60% 60% at 80% 0%, rgba(168, 85, 247, 0.10), transparent 60%),
-      radial-gradient(60% 60% at 0% 20%, rgba(91, 91, 247, 0.10), transparent 60%),
+      radial-gradient(60% 60% at 80% 0%, rgba(6, 182, 212, 0.10), transparent 60%),
+      radial-gradient(60% 60% at 0% 20%, rgba(20, 184, 166, 0.10), transparent 60%),
       var(--bg);
   }
   .hero-grid {
@@ -85,8 +95,8 @@
   .orb {
     position: absolute;
     border-radius: 50%;
-    filter: blur(40px);
-    opacity: 0.5;
+    filter: blur(48px);
+    opacity: 0.55;
   }
   .orb-1 { width: 280px; height: 280px; background: var(--accent); top: 20px; left: 30px; }
   .orb-2 { width: 240px; height: 240px; background: var(--accent-2); bottom: 30px; right: 10px; }
@@ -94,42 +104,31 @@
     position: absolute;
     background: #fff;
     border: 1px solid var(--line);
-    border-radius: var(--radius);
+    border-radius: 16px;
     box-shadow: var(--shadow-md);
-    padding: 16px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 240px;
   }
-  .card-1 { top: 30px; left: 0; width: 220px; }
-  .card-2 { top: 130px; right: 0; width: 240px; }
-  .card-3 { bottom: 20px; left: 60px; width: 240px; }
-  .card-dot {
-    width: 10px; height: 10px; border-radius: 50%;
-    background: linear-gradient(135deg, var(--accent), var(--accent-2));
-    margin-bottom: 12px;
+  .card-1 { top: 30px; left: 0; }
+  .card-2 { top: 170px; right: 0; }
+  .card-3 { bottom: 20px; left: 60px; }
+  .avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-weight: 700; font-size: 1rem;
+    flex-shrink: 0;
   }
-  .card-line {
-    height: 8px; border-radius: 4px;
-    background: var(--bg-soft);
-    margin: 6px 0;
-  }
-  .w-40 { width: 40%; } .w-50 { width: 50%; } .w-60 { width: 60%; } .w-70 { width: 70%; } .w-80 { width: 80%; }
-  .card-pill {
-    display: inline-block;
-    background: var(--accent-soft);
-    color: var(--accent);
-    font-size: 0.75rem;
-    font-weight: 600;
-    padding: 4px 10px;
-    border-radius: 999px;
-    margin-bottom: 10px;
-  }
-  .card-bar {
-    height: 8px; background: var(--bg-soft); border-radius: 4px; overflow: hidden;
-  }
-  .card-bar span {
-    display: block; height: 100%;
-    background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  }
-  .card-meta { margin-top: 8px; font-size: 0.85rem; color: var(--ink-2); font-weight: 600; }
+  .a-1 { background: linear-gradient(135deg, #14b8a6, #06b6d4); }
+  .a-2 { background: linear-gradient(135deg, #7c3aed, #ec4899); }
+  .a-3 { background: linear-gradient(135deg, #f59e0b, #ec4899); }
+  .meta { flex: 1; line-height: 1.3; }
+  .meta strong { font-size: 0.95rem; color: var(--ink); display: block; }
+  .meta span { font-size: 0.82rem; color: var(--muted); }
+  .status { color: #10b981; font-size: 0.7rem; }
   @media (max-width: 900px) {
     .hero-grid { grid-template-columns: 1fr; gap: 32px; }
     .art { height: 360px; }

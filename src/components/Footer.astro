@@ -3,10 +3,9 @@ const year = new Date().getFullYear();
 ---
 <footer class="footer">
   <div class="container footer-inner">
-    <div class="brand">
-      <span class="logo" aria-hidden="true"></span>
-      <span>Marblism Partners</span>
-    </div>
+    <a href="/" class="brand">
+      <img src="/logo.svg" alt="Marblism Partners" height="24" />
+    </a>
     <p class="muted">
       © {year} Marblism Partners. Independent strategic partner — Marblism is a trademark of its respective owners.
     </p>
@@ -29,11 +28,8 @@ const year = new Date().getFullYear();
     align-items: center;
     gap: 24px;
   }
-  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; }
-  .logo {
-    width: 24px; height: 24px; border-radius: 6px;
-    background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  }
+  .brand { display: flex; align-items: center; }
+  .brand img { display: block; height: 24px; width: auto; }
   .muted { color: var(--muted); font-size: 0.88rem; margin: 0; }
   .links { display: flex; gap: 18px; font-size: 0.9rem; }
   @media (max-width: 720px) {

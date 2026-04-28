@@ -1,45 +1,170 @@
 ---
+// Replace FORMSPREE_ID with your form ID from https://formspree.io
+// (sign up free → New Form → copy the ID after /f/)
+const FORMSPREE_ID = 'your-formspree-id';
+const action = `https://formspree.io/f/${FORMSPREE_ID}`;
 ---
 <section id="contact" class="contact">
   <div class="container">
     <div class="cta-card">
-      <div>
+      <div class="cta-text">
         <span class="eyebrow">Let's talk</span>
         <h2>Ready to put AI to work in your business?</h2>
         <p class="lead">
-          Book a free 30-minute discovery call. We'll map your highest-leverage AI use case and
-          show you what a Marblism build would look like — no pressure, no jargon.
+          Tell us a little about your business and the bottleneck you'd most like AI to solve.
+          We'll reply within one business day with a tailored Marblism plan.
         </p>
-        <div class="actions">
-          <a href="mailto:hello@marblism.app" class="btn btn-primary">Email hello@marblism.app</a>
-          <a href="https://calendly.com/" class="btn btn-ghost" target="_blank" rel="noopener">Book a call →</a>
-        </div>
-        <p class="micro">Replace the Calendly link in <code>Contact.astro</code> with your scheduling URL.</p>
+        <ul class="bullets">
+          <li>✓ Free 30-min discovery call</li>
+          <li>✓ No obligation, no jargon</li>
+          <li>✓ Reply within 1 business day</li>
+        </ul>
+        <p class="alt-contact">
+          Prefer email? <a href="mailto:hello@marblism.app">hello@marblism.app</a>
+        </p>
       </div>
+
+      <form class="form" action={action} method="POST" data-form>
+        <div class="row">
+          <label>
+            <span>Name</span>
+            <input type="text" name="name" required autocomplete="name" placeholder="Jane Doe" />
+          </label>
+        </div>
+        <div class="row">
+          <label>
+            <span>Email</span>
+            <input type="email" name="email" required autocomplete="email" placeholder="jane@business.com" />
+          </label>
+        </div>
+        <div class="row">
+          <label>
+            <span>Business</span>
+            <input type="text" name="business" autocomplete="organization" placeholder="Acme Co." />
+          </label>
+        </div>
+        <div class="row">
+          <label>
+            <span>What do you want AI to help with?</span>
+            <textarea name="message" rows="4" required placeholder="e.g. our team spends 10 hours a week answering the same support questions..."></textarea>
+          </label>
+        </div>
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hp" />
+        <button type="submit" class="btn btn-primary submit">Send message</button>
+        <p class="status" data-status aria-live="polite"></p>
+      </form>
     </div>
   </div>
 </section>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-form]');
+  const status = document.querySelector<HTMLParagraphElement>('[data-status]');
+  if (form && status) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+      if (submit) { submit.disabled = true; submit.textContent = 'Sending…'; }
+      status.textContent = '';
+      status.className = 'status';
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: { Accept: 'application/json' },
+        });
+        if (res.ok) {
+          form.reset();
+          status.textContent = '✓ Thanks — we\'ll reply within one business day.';
+          status.classList.add('ok');
+        } else {
+          const json = await res.json().catch(() => ({}));
+          status.textContent = json?.errors?.[0]?.message ?? 'Something went wrong. Please email hello@marblism.app.';
+          status.classList.add('err');
+        }
+      } catch {
+        status.textContent = 'Network error. Please email hello@marblism.app.';
+        status.classList.add('err');
+      } finally {
+        if (submit) { submit.disabled = false; submit.textContent = 'Send message'; }
+      }
+    });
+  }
+</script>
 
 <style>
   .contact { padding-bottom: 64px; }
   .cta-card {
     background:
-      radial-gradient(60% 80% at 0% 0%, rgba(168, 85, 247, 0.18), transparent 60%),
-      radial-gradient(60% 80% at 100% 100%, rgba(91, 91, 247, 0.20), transparent 60%),
-      #0c0c1a;
+      radial-gradient(60% 80% at 0% 0%, rgba(20, 184, 166, 0.28), transparent 60%),
+      radial-gradient(60% 80% at 100% 100%, rgba(6, 182, 212, 0.30), transparent 60%),
+      #061a23;
     color: #fff;
     border-radius: 24px;
-    padding: 64px;
+    padding: 56px;
     box-shadow: var(--shadow-md);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
   }
   .cta-card h2 { color: #fff; }
   .cta-card .eyebrow {
     background: rgba(255,255,255,0.08);
-    color: #c9c9ff;
+    color: #99f6e4;
   }
-  .lead { color: #cfd0e6; font-size: 1.1rem; max-width: 620px; }
-  .actions { display: flex; gap: 12px; margin-top: 24px; flex-wrap: wrap; }
-  .micro { margin-top: 18px; font-size: 0.8rem; color: #8b8ca8; }
-  .micro code { background: rgba(255,255,255,0.08); padding: 2px 6px; border-radius: 4px; }
-  @media (max-width: 720px) { .cta-card { padding: 36px 28px; } }
+  .lead { color: #cfe8ec; font-size: 1.05rem; }
+  .bullets {
+    list-style: none; padding: 0; margin: 18px 0 24px;
+    display: grid; gap: 8px;
+    color: #c5dde2; font-size: 0.95rem;
+  }
+  .alt-contact { color: #92a8b0; font-size: 0.9rem; margin: 0; }
+  .alt-contact a { color: #99f6e4; }
+
+  .form {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 16px;
+    padding: 24px;
+    backdrop-filter: blur(6px);
+  }
+  .row { margin-bottom: 14px; }
+  label { display: block; }
+  label span {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #e0dcf1;
+    margin-bottom: 6px;
+  }
+  input, textarea {
+    width: 100%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.14);
+    color: #fff;
+    border-radius: 10px;
+    padding: 12px 14px;
+    font: inherit;
+    font-size: 0.95rem;
+    transition: border-color .15s ease, background .15s ease;
+  }
+  input::placeholder, textarea::placeholder { color: #8a86a3; }
+  input:focus, textarea:focus {
+    outline: none;
+    border-color: #14b8a6;
+    background: rgba(255,255,255,0.10);
+  }
+  textarea { resize: vertical; min-height: 100px; }
+  .hp { position: absolute; left: -9999px; opacity: 0; }
+  .submit { width: 100%; margin-top: 6px; }
+  .submit:disabled { opacity: 0.6; cursor: not-allowed; }
+  .status { margin: 14px 0 0; font-size: 0.9rem; min-height: 1.2em; }
+  .status.ok { color: #86efac; }
+  .status.err { color: #fca5a5; }
+
+  @media (max-width: 880px) {
+    .cta-card { grid-template-columns: 1fr; padding: 36px 28px; gap: 28px; }
+  }
 </style>
