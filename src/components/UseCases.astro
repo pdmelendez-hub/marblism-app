@@ -1,0 +1,84 @@
+---
+const cases = [
+  {
+    tag: 'Customer Support',
+    title: 'AI support agent that handles 70% of tickets',
+    desc: 'Answers FAQs, books appointments, and escalates only what needs a human — 24/7, in your tone.',
+  },
+  {
+    tag: 'Sales & Lead Gen',
+    title: 'Inbound leads qualified before you wake up',
+    desc: 'Forms, chats, and emails are triaged, enriched, and routed to your team with context.',
+  },
+  {
+    tag: 'Operations',
+    title: 'Quotes, invoices, and follow-ups on autopilot',
+    desc: 'AI drafts proposals, sends reminders, and reconciles data so your team stops chasing paperwork.',
+  },
+  {
+    tag: 'Custom Apps',
+    title: 'A dashboard your team actually uses',
+    desc: 'Lightweight tools tailored to your workflow — built in days on Marblism, not months on bespoke code.',
+  },
+];
+---
+<section id="use-cases" class="usecases">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Use cases</span>
+      <h2>Where small businesses see ROI fastest.</h2>
+      <p class="section-sub">
+        Pick the use case that hurts the most. We'll scope a Marblism build, ship a working
+        version, and tune it with your team.
+      </p>
+    </div>
+    <div class="grid">
+      {cases.map((c) => (
+        <article class="case">
+          <span class="tag">{c.tag}</span>
+          <h3>{c.title}</h3>
+          <p>{c.desc}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .case {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .case::before {
+    content: '';
+    position: absolute;
+    inset: 0 auto auto 0;
+    width: 4px; height: 100%;
+    background: linear-gradient(180deg, var(--accent), var(--accent-2));
+    opacity: 0;
+    transition: opacity .2s ease;
+  }
+  .case:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+  .case:hover::before { opacity: 1; }
+  .tag {
+    display: inline-block;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 5px 12px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+  @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
+</style>

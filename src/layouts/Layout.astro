@@ -1,0 +1,103 @@
+---
+export interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Marblism Partners — AI solutions for small business',
+  description = 'Strategic partner for Marblism AI. We help small businesses adopt custom AI agents, automations, and apps that pay for themselves.',
+} = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://marblism.app" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+    <style is:global>
+      :root {
+        --bg: #ffffff;
+        --bg-soft: #f7f7fb;
+        --ink: #0c0c1a;
+        --ink-2: #3a3a52;
+        --muted: #6b7280;
+        --line: #e6e6ef;
+        --accent: #5b5bf7;
+        --accent-2: #a855f7;
+        --accent-soft: #eef0ff;
+        --radius: 14px;
+        --shadow-sm: 0 1px 2px rgba(12, 12, 26, 0.04), 0 1px 3px rgba(12, 12, 26, 0.06);
+        --shadow-md: 0 8px 24px rgba(91, 91, 247, 0.12), 0 2px 6px rgba(12, 12, 26, 0.05);
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; }
+      body {
+        font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+        color: var(--ink);
+        background: var(--bg);
+        line-height: 1.55;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      a { color: var(--accent); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      h1, h2, h3 { line-height: 1.15; letter-spacing: -0.02em; margin: 0 0 .4em; }
+      h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); font-weight: 800; }
+      h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; }
+      h3 { font-size: 1.15rem; font-weight: 600; }
+      p { margin: 0 0 1em; color: var(--ink-2); }
+      .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+      .btn {
+        display: inline-block;
+        padding: 14px 22px;
+        border-radius: 999px;
+        font-weight: 600;
+        font-size: 0.98rem;
+        transition: transform .15s ease, box-shadow .15s ease, background .2s ease;
+        cursor: pointer;
+        border: 1px solid transparent;
+      }
+      .btn-primary {
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        color: #fff;
+        box-shadow: var(--shadow-md);
+      }
+      .btn-primary:hover { transform: translateY(-1px); text-decoration: none; }
+      .btn-ghost {
+        background: transparent;
+        color: var(--ink);
+        border-color: var(--line);
+      }
+      .btn-ghost:hover { background: var(--bg-soft); text-decoration: none; }
+      .eyebrow {
+        display: inline-block;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--accent);
+        background: var(--accent-soft);
+        padding: 6px 12px;
+        border-radius: 999px;
+      }
+      section { padding: 88px 0; }
+      @media (max-width: 720px) {
+        section { padding: 64px 0; }
+      }
+    </style>
+  </body>
+</html>

@@ -1,0 +1,45 @@
+---
+---
+<section id="contact" class="contact">
+  <div class="container">
+    <div class="cta-card">
+      <div>
+        <span class="eyebrow">Let's talk</span>
+        <h2>Ready to put AI to work in your business?</h2>
+        <p class="lead">
+          Book a free 30-minute discovery call. We'll map your highest-leverage AI use case and
+          show you what a Marblism build would look like — no pressure, no jargon.
+        </p>
+        <div class="actions">
+          <a href="mailto:hello@marblism.app" class="btn btn-primary">Email hello@marblism.app</a>
+          <a href="https://calendly.com/" class="btn btn-ghost" target="_blank" rel="noopener">Book a call →</a>
+        </div>
+        <p class="micro">Replace the Calendly link in <code>Contact.astro</code> with your scheduling URL.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact { padding-bottom: 64px; }
+  .cta-card {
+    background:
+      radial-gradient(60% 80% at 0% 0%, rgba(168, 85, 247, 0.18), transparent 60%),
+      radial-gradient(60% 80% at 100% 100%, rgba(91, 91, 247, 0.20), transparent 60%),
+      #0c0c1a;
+    color: #fff;
+    border-radius: 24px;
+    padding: 64px;
+    box-shadow: var(--shadow-md);
+  }
+  .cta-card h2 { color: #fff; }
+  .cta-card .eyebrow {
+    background: rgba(255,255,255,0.08);
+    color: #c9c9ff;
+  }
+  .lead { color: #cfd0e6; font-size: 1.1rem; max-width: 620px; }
+  .actions { display: flex; gap: 12px; margin-top: 24px; flex-wrap: wrap; }
+  .micro { margin-top: 18px; font-size: 0.8rem; color: #8b8ca8; }
+  .micro code { background: rgba(255,255,255,0.08); padding: 2px 6px; border-radius: 4px; }
+  @media (max-width: 720px) { .cta-card { padding: 36px 28px; } }
+</style>
