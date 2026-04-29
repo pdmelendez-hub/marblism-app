@@ -1,0 +1,73 @@
+---
+import IndustryPage from '../components/industries/IndustryPage.astro';
+
+const employees = [
+  {
+    name: 'Rachel',
+    role: 'Receptionist',
+    fit: "Books appointments the moment a client calls — even during a treatment, even at 10pm. Sends confirmation texts, 48-hour reminders, and same-day nudges so no-shows drop dramatically.",
+    grad: 'linear-gradient(135deg, #10b981, #14b8a6)',
+  },
+  {
+    name: 'Sonny',
+    role: 'Community Manager',
+    fit: "Keeps your Instagram and Facebook active with on-brand content, replies to DMs and comments, and routes warm leads straight to your booking link — without you touching your phone.",
+    grad: 'linear-gradient(135deg, #f97316, #ec4899)',
+  },
+  {
+    name: 'Eva',
+    role: 'Executive Assistant',
+    fit: "Sends post-treatment follow-ups in your voice, manages rebooking reminders at the perfect interval, and handles supplier and product vendor emails so your inbox doesn't spiral.",
+    grad: 'linear-gradient(135deg, #14b8a6, #06b6d4)',
+  },
+  {
+    name: 'Penny',
+    role: 'SEO Blog Writer',
+    fit: "Publishes educational, keyword-optimized content about your treatments every week — the kind that ranks on Google and brings in clients who already know what they want.",
+    grad: 'linear-gradient(135deg, #f59e0b, #ec4899)',
+  },
+];
+
+const pains = [
+  {
+    before: "Phone rings mid-treatment — you can't answer, client hangs up and books elsewhere",
+    after: "Rachel answers every call, books the slot, and sends a confirmation — while you focus on your client",
+  },
+  {
+    before: "No-shows cost you 2–3 hours of revenue every week",
+    after: "Eva sends automatic reminders at 48 hours and 2 hours before — no-shows drop by over 60%",
+  },
+  {
+    before: "Instagram goes dark for two weeks every time you get busy",
+    after: "Sonny posts consistently, responds to DMs, and keeps your booking link visible even when you're slammed",
+  },
+  {
+    before: "Clients drift away after one visit because no one followed up",
+    after: "Eva sends a warm check-in and rebooking nudge at the right moment, in your voice",
+  },
+  {
+    before: "You're writing blog content at midnight — or not at all",
+    after: "Penny publishes SEO-optimized treatment content on a weekly schedule, building your organic traffic while you sleep",
+  },
+];
+---
+<IndustryPage
+  industry="Spa & Wellness"
+  icon="🧖"
+  tagline="You're a healer. <span class='grad'>Not a receptionist.</span>"
+  subhead="Spa owners lose hours every week answering booking calls, chasing no-shows, and trying to stay active on social media. Your Marblism AI team handles all of it — in your brand's voice, around the clock, so you can stay fully present with every client."
+  cta="Hire my spa AI team"
+  employees={employees}
+  pains={pains}
+  seoTitle="AI Employees for Spa & Wellness Owners — Marblism Partners"
+  seoDesc="Rachel books appointments 24/7. Sonny runs your social. Eva sends rebooking reminders. Penny writes your SEO content. Your Marblism AI team, ready in 48 hours."
+/>
+
+<style is:global>
+  .grad {
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+</style>

@@ -1,84 +1,127 @@
 ---
-const cases = [
+const industries = [
   {
-    tag: 'Local services',
-    title: 'Never miss another phone call',
-    desc: 'Rachel answers every call, qualifies the lead, and drops the appointment on your calendar — even at 2am.',
+    icon: '🧖',
+    tag: 'Spa & Wellness',
+    title: 'Never lose a booking to a missed call.',
+    desc: 'Rachel answers 24/7. Sonny keeps your Instagram alive. Eva sends rebooking reminders. Penny builds your Google presence.',
+    href: '/spa',
+    employees: ['Rachel', 'Sonny', 'Eva', 'Penny'],
   },
   {
-    tag: 'Agencies & consultants',
-    title: 'Fill the pipeline while you do the work',
-    desc: 'Stan prospects, personalizes outreach, and books discovery calls so you can stop choosing between selling and delivering.',
+    icon: '🏘️',
+    tag: 'Real Estate',
+    title: "Stop letting deals slip through your voicemail.",
+    desc: 'Rachel qualifies buyers around the clock. Stan sources off-market leads. Linda pre-screens contracts. Eva clears your inbox.',
+    href: '/real-estate',
+    employees: ['Rachel', 'Stan', 'Linda', 'Eva'],
   },
   {
-    tag: 'E-commerce & DTC',
-    title: 'Content that ranks, posts that convert',
-    desc: 'Penny ships SEO blogs every week. Sonny runs your socials. You stop pretending you have time for either.',
+    icon: '✈️',
+    tag: 'Travel Advisors',
+    title: 'You sell the experience — not the follow-up.',
+    desc: 'Rachel handles inquiry calls. Eva manages complex itinerary threads. Stan finds your ideal clients. Penny builds organic traffic.',
+    href: '/travel',
+    employees: ['Rachel', 'Eva', 'Stan', 'Penny'],
   },
   {
-    tag: 'Owner-operators',
-    title: 'Get your inbox (and your life) back',
-    desc: 'Eva triages email, drafts replies in your voice, and turns chaos into a clean list of three things to actually decide.',
+    icon: '🗂️',
+    tag: 'Office Managers',
+    title: 'Everyone needs you. Now you have backup.',
+    desc: 'Eva triages your inbox and preps meeting notes. Rachel handles calls. Linda reviews vendor agreements. Stan sources suppliers.',
+    href: '/office',
+    employees: ['Eva', 'Rachel', 'Linda', 'Stan'],
   },
 ];
 ---
-<section id="use-cases" class="usecases">
+<section id="industries" class="industries">
   <div class="container">
     <div class="section-head">
-      <span class="eyebrow">Use cases</span>
-      <h2>Built for the way real small businesses work.</h2>
+      <span class="eyebrow">Industries</span>
+      <h2>Pick your business. See exactly who clocks in for you.</h2>
       <p class="section-sub">
-        Pick the bottleneck that hurts the most. We'll match it to the right AI Employee,
-        ship a working version in days, and tune it with you.
+        Not generic AI. Specific employees — trained on your industry's tasks, tools, and tone — deployed and running in 48 hours.
       </p>
     </div>
     <div class="grid">
-      {cases.map((c) => (
-        <article class="case">
-          <span class="tag">{c.tag}</span>
+      {industries.map((c) => (
+        <a href={c.href} class="card">
+          <div class="card-top">
+            <span class="ind-icon">{c.icon}</span>
+            <span class="tag">{c.tag}</span>
+          </div>
           <h3>{c.title}</h3>
           <p>{c.desc}</p>
-        </article>
+          <div class="employees">
+            {c.employees.map((name) => (
+              <span class="emp-chip">{name}</span>
+            ))}
+          </div>
+          <span class="cta-link">See full breakdown →</span>
+        </a>
       ))}
     </div>
   </div>
 </section>
 
 <style>
+  .industries { padding: 80px 0; background: var(--bg-soft); }
+  .section-head { max-width: 680px; margin-bottom: 48px; }
+  .section-sub { font-size: 1.02rem; color: var(--ink-2); margin-top: 10px; }
+
   .grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
   }
-  .case {
+  .card {
     background: #fff;
     border: 1px solid var(--line);
     border-radius: var(--radius);
     padding: 32px;
-    position: relative;
-    overflow: hidden;
-    transition: transform .2s ease, box-shadow .2s ease;
+    position: relative; overflow: hidden;
+    text-decoration: none; color: inherit;
+    display: flex; flex-direction: column; gap: 10px;
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
   }
-  .case::before {
+  .card::before {
     content: '';
-    position: absolute;
-    inset: 0 auto auto 0;
+    position: absolute; inset: 0 auto auto 0;
     width: 4px; height: 100%;
     background: linear-gradient(180deg, var(--accent), var(--accent-2));
-    opacity: 0;
-    transition: opacity .2s ease;
+    opacity: 0; transition: opacity .2s ease;
   }
-  .case:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: rgba(20, 184, 166, 0.30); }
-  .case:hover::before { opacity: 1; }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: rgba(20, 184, 166, 0.35);
+    text-decoration: none;
+  }
+  .card:hover::before { opacity: 1; }
+  .card:hover .cta-link { color: var(--accent-deep); }
+
+  .card-top { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+  .ind-icon { font-size: 1.4rem; }
   .tag {
     display: inline-block;
-    font-size: 0.78rem;
-    font-weight: 600;
-    color: var(--accent);
-    background: var(--accent-soft);
-    padding: 5px 12px;
-    border-radius: 999px;
-    margin-bottom: 14px;
+    font-size: 0.78rem; font-weight: 600;
+    color: var(--accent); background: var(--accent-soft);
+    padding: 4px 12px; border-radius: 999px;
   }
+  .card h3 { margin: 0; font-size: 1.1rem; color: var(--ink); line-height: 1.3; }
+  .card p { margin: 0; font-size: 0.93rem; color: var(--ink-2); line-height: 1.55; }
+
+  .employees { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+  .emp-chip {
+    font-size: 0.76rem; font-weight: 600;
+    background: var(--bg-soft); color: var(--ink-2);
+    border: 1px solid var(--line);
+    padding: 3px 10px; border-radius: 999px;
+  }
+  .cta-link {
+    font-size: 0.88rem; font-weight: 600; color: var(--muted);
+    margin-top: auto; padding-top: 8px; transition: color .15s;
+  }
+
   @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
 </style>

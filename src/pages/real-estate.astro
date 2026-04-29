@@ -1,4 +1,73 @@
 ---
-import RedirectToMaintenance from '../layouts/RedirectToMaintenance.astro';
+import IndustryPage from '../components/industries/IndustryPage.astro';
+
+const employees = [
+  {
+    name: 'Rachel',
+    role: 'Receptionist',
+    fit: "Answers every inbound call, qualifies buyers and sellers with your screening questions, and books showings directly on your calendar — including evenings and weekends when deals actually happen.",
+    grad: 'linear-gradient(135deg, #10b981, #14b8a6)',
+  },
+  {
+    name: 'Stan',
+    role: 'Lead Generation',
+    fit: "Identifies off-market prospects, absentee owners, and motivated sellers in your target market. Sends personalized outreach that reads like a personal introduction — not a cold email blast.",
+    grad: 'linear-gradient(135deg, #7c3aed, #3b82f6)',
+  },
+  {
+    name: 'Linda',
+    role: 'Legal Assistant',
+    fit: "Pre-reviews purchase agreements, addenda, and disclosure packets before they hit your desk. Flags unusual clauses and translates legal language into plain English so you can act fast and confidently.",
+    grad: 'linear-gradient(135deg, #3b82f6, #7c3aed)',
+  },
+  {
+    name: 'Eva',
+    role: 'Executive Assistant',
+    fit: "Manages your inbox, drafts follow-up emails in your voice, tracks transaction timelines, and surfaces the three things that actually need your attention today — not the 80 emails that don't.",
+    grad: 'linear-gradient(135deg, #14b8a6, #06b6d4)',
+  },
+];
+
+const pains = [
+  {
+    before: "Buyer calls during showings go to voicemail — they've already called someone else by the time you call back",
+    after: "Rachel answers every call, qualifies the lead, and books the showing while you're still with another client",
+  },
+  {
+    before: "2+ hours reviewing purchase agreements for risks you might be missing",
+    after: "Linda pre-screens every contract and flags unusual clauses in under 5 minutes — you review what matters",
+  },
+  {
+    before: "Cold outreach to homeowners feels generic, gets ignored, and takes hours to write",
+    after: "Stan identifies motivated sellers and sends personalized introductions that actually get replies",
+  },
+  {
+    before: "Follow-up emails pile up while you're on the road between showings",
+    after: "Eva drafts replies in your voice, ready to send with one click — nothing falls through the cracks",
+  },
+  {
+    before: "Transaction deadlines sneak up in a flood of email threads",
+    after: "Eva tracks every timeline and pings you when something needs action — before it becomes a problem",
+  },
+];
 ---
-<RedirectToMaintenance />
+<IndustryPage
+  industry="Real Estate"
+  icon="🏘️"
+  tagline="Your next commission shouldn't depend on <span class='grad'>who picked up the phone.</span>"
+  subhead="Real estate is a relationship business. But relationships get lost in missed calls, slow contract reviews, and cold outreach that never lands. Your Marblism AI team fixes all three — so you can close deals instead of managing your inbox."
+  cta="Hire my real estate AI team"
+  employees={employees}
+  pains={pains}
+  seoTitle="AI Employees for Real Estate Agents — Marblism Partners"
+  seoDesc="Rachel qualifies buyers 24/7. Stan sources leads. Linda reviews contracts. Eva runs your inbox. Your full Marblism AI team, live in 48 hours."
+/>
+
+<style is:global>
+  .grad {
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+</style>

@@ -1,0 +1,73 @@
+---
+import IndustryPage from '../components/industries/IndustryPage.astro';
+
+const employees = [
+  {
+    name: 'Eva',
+    role: 'Executive Assistant',
+    fit: "Triages your inbox and surfaces only the emails that need a decision. Drafts replies in your voice, schedules meetings, preps briefing docs before every call, and turns meeting recordings into clean action-item lists.",
+    grad: 'linear-gradient(135deg, #14b8a6, #06b6d4)',
+  },
+  {
+    name: 'Rachel',
+    role: 'Receptionist',
+    fit: "Handles every inbound call professionally — routes to the right person, takes detailed messages, and keeps a log. Nobody gets lost in the phone queue, and you stop being the default answer for every caller.",
+    grad: 'linear-gradient(135deg, #10b981, #14b8a6)',
+  },
+  {
+    name: 'Linda',
+    role: 'Legal Assistant',
+    fit: "Reviews vendor contracts, service agreements, software subscriptions, and NDAs before you sign. Flags non-standard payment terms, auto-renewal clauses, liability caps, and anything that warrants a second look.",
+    grad: 'linear-gradient(135deg, #3b82f6, #7c3aed)',
+  },
+  {
+    name: 'Stan',
+    role: 'Lead Generation',
+    fit: "Handles outbound vendor sourcing and supplier prospecting — finds vetted candidates, makes first contact, and qualifies them before they hit your desk. You evaluate options instead of hunting for them.",
+    grad: 'linear-gradient(135deg, #7c3aed, #3b82f6)',
+  },
+];
+
+const pains = [
+  {
+    before: "200 emails a day — half of them low-priority, all of them eating your time",
+    after: "Eva triages everything, drafts the replies that matter, and surfaces the 10 that actually need you",
+  },
+  {
+    before: "Every vendor contract reviewed under time pressure — you catch what you catch",
+    after: "Linda pre-screens every agreement and flags risky terms before it hits your desk for final sign-off",
+  },
+  {
+    before: "Interruption calls pull you out of focused work 10 times a day",
+    after: "Rachel handles calls professionally, routes the right ones, and logs everything so nothing slips",
+  },
+  {
+    before: "Meeting prep is rushed because there's never enough time before the call",
+    after: "Eva prepares a clean one-page briefing doc before every meeting — you walk in ready, every time",
+  },
+  {
+    before: "Sourcing new vendors is reactive and time-consuming when your current one falls short",
+    after: "Stan runs proactive outreach to pre-vetted suppliers so you always have a qualified backup pipeline",
+  },
+];
+---
+<IndustryPage
+  industry="Office Managers"
+  icon="🗂️"
+  tagline="Everyone needs you. <span class='grad'>Now you have backup.</span>"
+  subhead="Office managers are the operational hub of every business — handling more than any one person should. Your Marblism AI team takes the repeatable work off your plate so you can focus on the decisions, relationships, and problems that actually need a human."
+  cta="Hire my office AI team"
+  employees={employees}
+  pains={pains}
+  seoTitle="AI Employees for Office Managers — Marblism Partners"
+  seoDesc="Eva runs your inbox. Rachel handles calls. Linda reviews vendor contracts. Stan sources suppliers. Your Marblism AI team, live in 48 hours."
+/>
+
+<style is:global>
+  .grad {
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+</style>

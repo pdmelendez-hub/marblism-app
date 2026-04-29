@@ -1,0 +1,73 @@
+---
+import IndustryPage from '../components/industries/IndustryPage.astro';
+
+const employees = [
+  {
+    name: 'Rachel',
+    role: 'Receptionist',
+    fit: "Answers every inquiry call, gathers the essential details (destination, budget, travel dates, group size), and books a consultation directly on your calendar — so no lead goes cold over the weekend.",
+    grad: 'linear-gradient(135deg, #10b981, #14b8a6)',
+  },
+  {
+    name: 'Eva',
+    role: 'Executive Assistant',
+    fit: "Manages the complex, multi-thread email chains that come with every itinerary. Drafts client updates, handles supplier confirmations, sends pre-trip briefings, and follows up post-trip to turn great experiences into repeat bookings.",
+    grad: 'linear-gradient(135deg, #14b8a6, #06b6d4)',
+  },
+  {
+    name: 'Stan',
+    role: 'Lead Generation',
+    fit: "Identifies ideal new clients — corporate travel managers, destination wedding planners, luxury family travelers — and opens conversations with warm, personalized outreach that gets replies.",
+    grad: 'linear-gradient(135deg, #7c3aed, #3b82f6)',
+  },
+  {
+    name: 'Penny',
+    role: 'SEO Blog Writer',
+    fit: "Publishes destination guides, packing lists, and 'best time to visit' articles that rank on Google and bring in travelers who are already in research mode — before they book with someone else.",
+    grad: 'linear-gradient(135deg, #f59e0b, #ec4899)',
+  },
+];
+
+const pains = [
+  {
+    before: "Inquiry calls come in when you're with a client or mid-itinerary — they go to voicemail and go cold",
+    after: "Rachel answers, gets the details, and books a consult on your calendar — every time, no exceptions",
+  },
+  {
+    before: "Your inbox is a jungle of supplier confirmations, client questions, and change requests",
+    after: "Eva organizes every thread, drafts replies in your voice, and keeps every itinerary moving forward",
+  },
+  {
+    before: "You rely entirely on referrals — great when it works, terrifying when it slows down",
+    after: "Stan runs a consistent outreach cadence to your ideal client profile, so new business isn't just luck",
+  },
+  {
+    before: "Your website has no organic traffic — clients have to already know you exist",
+    after: "Penny publishes destination content that ranks and brings in travelers who find you through Google",
+  },
+  {
+    before: "After a trip, the relationship fades because post-trip follow-up is always the last priority",
+    after: "Eva sends a thoughtful post-trip check-in and plants the seed for the next adventure — in your voice",
+  },
+];
+---
+<IndustryPage
+  industry="Travel Advisors"
+  icon="✈️"
+  tagline="You sell experiences. <span class='grad'>Not inbox management.</span>"
+  subhead="High-touch travel clients expect instant responses, flawless logistics, and a consultant who's always available. Your Marblism AI team handles the follow-through so you can focus on the craft — building the kind of itineraries people talk about for years."
+  cta="Hire my travel AI team"
+  employees={employees}
+  pains={pains}
+  seoTitle="AI Employees for Travel Advisors — Marblism Partners"
+  seoDesc="Rachel handles inquiry calls. Eva manages your itinerary inbox. Stan finds new clients. Penny builds your SEO presence. Your Marblism AI team, live in 48 hours."
+/>
+
+<style is:global>
+  .grad {
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+</style>
