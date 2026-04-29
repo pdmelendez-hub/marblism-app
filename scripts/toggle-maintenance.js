@@ -30,8 +30,8 @@ const LIVE = {
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Hero from '../components/Hero.astro';
-import Services from '../components/Services.astro';
 import UseCases from '../components/UseCases.astro';
+import Services from '../components/Services.astro';
 import Process from '../components/Process.astro';
 import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
@@ -40,8 +40,8 @@ import Footer from '../components/Footer.astro';
   <Nav />
   <main>
     <Hero />
-    <Services />
     <UseCases />
+    <Services />
     <Process />
     <Contact />
   </main>
@@ -70,7 +70,86 @@ const verticals = [
 </LuxuryLayout>
 `,
 
-  'real-estate.astro':    verticalPage('real-estate'),
+  'real-estate.astro': `---
+import IndustryPage from '../components/industries/IndustryPage.astro';
+const employees = [
+  { name:'Rachel', role:'Receptionist',        fit:"Answers every inbound call, qualifies buyers and sellers with your screening questions, and books showings directly on your calendar — including evenings and weekends when deals actually happen.", grad:'linear-gradient(135deg,#10b981,#14b8a6)' },
+  { name:'Stan',   role:'Lead Generation',     fit:"Identifies off-market prospects, absentee owners, and motivated sellers in your target market. Sends personalized outreach that reads like a personal introduction — not a cold email blast.",  grad:'linear-gradient(135deg,#7c3aed,#3b82f6)' },
+  { name:'Linda',  role:'Legal Assistant',     fit:"Pre-reviews purchase agreements, addenda, and disclosure packets before they hit your desk. Flags unusual clauses and translates legal language into plain English so you can act fast.",         grad:'linear-gradient(135deg,#3b82f6,#7c3aed)' },
+  { name:'Eva',    role:'Executive Assistant', fit:"Manages your inbox, drafts follow-up emails in your voice, tracks transaction timelines, and surfaces the three things that actually need your attention today — not the 80 emails that don't.", grad:'linear-gradient(135deg,#14b8a6,#06b6d4)' },
+];
+const pains = [
+  { before:"Buyer calls during showings go to voicemail — they've already called someone else by the time you call back",        after:"Rachel answers every call, qualifies the lead, and books the showing while you're still with another client" },
+  { before:"2+ hours reviewing purchase agreements for risks you might be missing",                                               after:"Linda pre-screens every contract and flags unusual clauses in under 5 minutes — you review what matters" },
+  { before:"Cold outreach to homeowners feels generic, gets ignored, and takes hours to write",                                   after:"Stan identifies motivated sellers and sends personalized introductions that actually get replies" },
+  { before:"Follow-up emails pile up while you're on the road between showings",                                                  after:"Eva drafts replies in your voice, ready to send with one click — nothing falls through the cracks" },
+  { before:"Transaction deadlines sneak up in a flood of email threads",                                                          after:"Eva tracks every timeline and pings you when something needs action — before it becomes a problem" },
+];
+---
+<IndustryPage industry="Real Estate" icon="🏘️" tagline="Your next commission shouldn\\'t depend on <span class=\\'grad\\'>who picked up the phone.</span>" subhead="Real estate is a relationship business. But relationships get lost in missed calls, slow contract reviews, and cold outreach that never lands. Your Marblism AI team fixes all three — so you can close deals instead of managing your inbox." cta="Hire my real estate AI team" employees={employees} pains={pains} seoTitle="AI Employees for Real Estate Agents — Marblism Partners" seoDesc="Rachel qualifies buyers 24/7. Stan sources leads. Linda reviews contracts. Eva runs your inbox. Your full Marblism AI team, live in 48 hours." />
+<style is:global>.grad{background:linear-gradient(135deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}</style>
+`,
+
+  'spa.astro': `---
+import IndustryPage from '../components/industries/IndustryPage.astro';
+const employees = [
+  { name:'Rachel', role:'Receptionist',        fit:"Books appointments the moment a client calls — even during a treatment, even at 10pm. Sends confirmation texts, 48-hour reminders, and same-day nudges so no-shows drop dramatically.",                                    grad:'linear-gradient(135deg,#10b981,#14b8a6)' },
+  { name:'Sonny',  role:'Community Manager',   fit:"Keeps your Instagram and Facebook active with on-brand content, replies to DMs and comments, and routes warm leads straight to your booking link — without you touching your phone.",                                      grad:'linear-gradient(135deg,#f97316,#ec4899)' },
+  { name:'Eva',    role:'Executive Assistant', fit:"Sends post-treatment follow-ups in your voice, manages rebooking reminders at the perfect interval, and handles supplier and product vendor emails so your inbox doesn't spiral.",                                         grad:'linear-gradient(135deg,#14b8a6,#06b6d4)' },
+  { name:'Penny',  role:'SEO Blog Writer',     fit:"Publishes educational, keyword-optimized content about your treatments every week — the kind that ranks on Google and brings in clients who already know what they want.",                                                   grad:'linear-gradient(135deg,#f59e0b,#ec4899)' },
+];
+const pains = [
+  { before:"Phone rings mid-treatment — you can't answer, client hangs up and books elsewhere",               after:"Rachel answers every call, books the slot, and sends a confirmation — while you focus on your client" },
+  { before:"No-shows cost you 2–3 hours of revenue every week",                                                after:"Eva sends automatic reminders at 48 hours and 2 hours before — no-shows drop by over 60%" },
+  { before:"Instagram goes dark for two weeks every time you get busy",                                        after:"Sonny posts consistently, responds to DMs, and keeps your booking link visible even when you're slammed" },
+  { before:"Clients drift away after one visit because no one followed up",                                    after:"Eva sends a warm check-in and rebooking nudge at the right moment, in your voice" },
+  { before:"You're writing blog content at midnight — or not at all",                                          after:"Penny publishes SEO-optimized treatment content on a weekly schedule, building your organic traffic while you sleep" },
+];
+---
+<IndustryPage industry="Spa & Wellness" icon="🧖" tagline="You\\'re a healer. <span class=\\'grad\\'>Not a receptionist.</span>" subhead="Spa owners lose hours every week answering booking calls, chasing no-shows, and trying to stay active on social media. Your Marblism AI team handles all of it — in your brand's voice, around the clock." cta="Hire my spa AI team" employees={employees} pains={pains} seoTitle="AI Employees for Spa & Wellness Owners — Marblism Partners" seoDesc="Rachel books appointments 24/7. Sonny runs your social. Eva sends rebooking reminders. Penny writes your SEO content." />
+<style is:global>.grad{background:linear-gradient(135deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}</style>
+`,
+
+  'travel.astro': `---
+import IndustryPage from '../components/industries/IndustryPage.astro';
+const employees = [
+  { name:'Rachel', role:'Receptionist',        fit:"Answers every inquiry call, gathers the essential details (destination, budget, travel dates, group size), and books a consultation directly on your calendar — so no lead goes cold over the weekend.",                      grad:'linear-gradient(135deg,#10b981,#14b8a6)' },
+  { name:'Eva',    role:'Executive Assistant', fit:"Manages the complex, multi-thread email chains that come with every itinerary. Drafts client updates, handles supplier confirmations, sends pre-trip briefings, and follows up post-trip to turn great experiences into repeat bookings.", grad:'linear-gradient(135deg,#14b8a6,#06b6d4)' },
+  { name:'Stan',   role:'Lead Generation',     fit:"Identifies ideal new clients — corporate travel managers, destination wedding planners, luxury family travelers — and opens conversations with warm, personalized outreach that gets replies.",                                 grad:'linear-gradient(135deg,#7c3aed,#3b82f6)' },
+  { name:'Penny',  role:'SEO Blog Writer',     fit:"Publishes destination guides, packing lists, and 'best time to visit' articles that rank on Google and bring in travelers who are already in research mode — before they book with someone else.",                             grad:'linear-gradient(135deg,#f59e0b,#ec4899)' },
+];
+const pains = [
+  { before:"Inquiry calls come in when you're with a client or mid-itinerary — they go to voicemail and go cold",   after:"Rachel answers, gets the details, and books a consult on your calendar — every time, no exceptions" },
+  { before:"Your inbox is a jungle of supplier confirmations, client questions, and change requests",                 after:"Eva organizes every thread, drafts replies in your voice, and keeps every itinerary moving forward" },
+  { before:"You rely entirely on referrals — great when it works, terrifying when it slows down",                     after:"Stan runs a consistent outreach cadence to your ideal client profile, so new business isn't just luck" },
+  { before:"Your website has no organic traffic — clients have to already know you exist",                            after:"Penny publishes destination content that ranks and brings in travelers who find you through Google" },
+  { before:"After a trip, the relationship fades because post-trip follow-up is always the last priority",            after:"Eva sends a thoughtful post-trip check-in and plants the seed for the next adventure — in your voice" },
+];
+---
+<IndustryPage industry="Travel Advisors" icon="✈️" tagline="You sell experiences. <span class=\\'grad\\'>Not inbox management.</span>" subhead="High-touch travel clients expect instant responses, flawless logistics, and a consultant who's always available. Your Marblism AI team handles the follow-through so you can focus on the craft." cta="Hire my travel AI team" employees={employees} pains={pains} seoTitle="AI Employees for Travel Advisors — Marblism Partners" seoDesc="Rachel handles inquiry calls. Eva manages your itinerary inbox. Stan finds new clients. Penny builds your SEO presence." />
+<style is:global>.grad{background:linear-gradient(135deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}</style>
+`,
+
+  'office.astro': `---
+import IndustryPage from '../components/industries/IndustryPage.astro';
+const employees = [
+  { name:'Eva',    role:'Executive Assistant', fit:"Triages your inbox and surfaces only the emails that need a decision. Drafts replies in your voice, schedules meetings, preps briefing docs before every call, and turns meeting recordings into clean action-item lists.",      grad:'linear-gradient(135deg,#14b8a6,#06b6d4)' },
+  { name:'Rachel', role:'Receptionist',        fit:"Handles every inbound call professionally — routes to the right person, takes detailed messages, and keeps a log. Nobody gets lost in the phone queue, and you stop being the default answer for every caller.",                 grad:'linear-gradient(135deg,#10b981,#14b8a6)' },
+  { name:'Linda',  role:'Legal Assistant',     fit:"Reviews vendor contracts, service agreements, software subscriptions, and NDAs before you sign. Flags non-standard payment terms, auto-renewal clauses, liability caps, and anything that warrants a second look.",             grad:'linear-gradient(135deg,#3b82f6,#7c3aed)' },
+  { name:'Stan',   role:'Lead Generation',     fit:"Handles outbound vendor sourcing and supplier prospecting — finds vetted candidates, makes first contact, and qualifies them before they hit your desk. You evaluate options instead of hunting for them.",                       grad:'linear-gradient(135deg,#7c3aed,#3b82f6)' },
+];
+const pains = [
+  { before:"200 emails a day — half of them low-priority, all of them eating your time",                              after:"Eva triages everything, drafts the replies that matter, and surfaces the 10 that actually need you" },
+  { before:"Every vendor contract reviewed under time pressure — you catch what you catch",                            after:"Linda pre-screens every agreement and flags risky terms before it hits your desk for final sign-off" },
+  { before:"Interruption calls pull you out of focused work 10 times a day",                                          after:"Rachel handles calls professionally, routes the right ones, and logs everything so nothing slips" },
+  { before:"Meeting prep is rushed because there's never enough time before the call",                                 after:"Eva prepares a clean one-page briefing doc before every meeting — you walk in ready, every time" },
+  { before:"Sourcing new vendors is reactive and time-consuming when your current one falls short",                    after:"Stan runs proactive outreach to pre-vetted suppliers so you always have a qualified backup pipeline" },
+];
+---
+<IndustryPage industry="Office Managers" icon="🗂️" tagline="Everyone needs you. <span class=\\'grad\\'>Now you have backup.</span>" subhead="Office managers are the operational hub of every business — handling more than any one person should. Your Marblism AI team takes the repeatable work off your plate so you can focus on the decisions that actually need a human." cta="Hire my office AI team" employees={employees} pains={pains} seoTitle="AI Employees for Office Managers — Marblism Partners" seoDesc="Eva runs your inbox. Rachel handles calls. Linda reviews vendor contracts. Stan sources suppliers. Your Marblism AI team, live in 48 hours." />
+<style is:global>.grad{background:linear-gradient(135deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}</style>
+`,
+
   'medspa.astro':         verticalPage('medspa'),
   'salon.astro':          verticalPage('salon'),
   'wealth.astro':         verticalPage('wealth'),
