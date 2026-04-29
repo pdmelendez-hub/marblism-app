@@ -1,0 +1,329 @@
+---
+import LuxuryLayout from '../layouts/LuxuryLayout.astro';
+import { REFERRAL_URL, PARTNER_EMAIL } from '../data/referral';
+
+const verticals = [
+  {
+    slug: '/real-estate',
+    label: 'Luxury Real Estate',
+    tagline: 'Never miss a qualified buyer',
+    desc: 'Linda reviews contracts. Rachel answers every call. Stan sources off-market prospects.',
+    icon: '🏛️',
+  },
+  {
+    slug: '/medspa',
+    label: 'Medical Aesthetics',
+    tagline: 'Fill your chair, protect your brand',
+    desc: 'Rachel books consultations 24/7. Eva sends pre-care and follow-up. Penny drives organic discovery.',
+    icon: '✦',
+  },
+  {
+    slug: '/salon',
+    label: 'Luxury Salons & Spas',
+    tagline: 'White-glove service starts before they walk in',
+    desc: 'Rachel handles every booking request. Sonny builds your social presence. Penny tells your story.',
+    icon: '◈',
+  },
+  {
+    slug: '/wealth',
+    label: 'Wealth & Financial Advisory',
+    tagline: 'Your AI team handles the detail work',
+    desc: 'Eva manages your inbox and meeting prep. Linda reviews agreements. Stan sources ideal prospects.',
+    icon: '◆',
+  },
+  {
+    slug: '/interior-design',
+    label: 'Interior Design & Architecture',
+    tagline: 'Less admin. More creating.',
+    desc: 'Eva drafts proposals and client replies. Stan surfaces high-value leads. Penny builds editorial authority.',
+    icon: '⬡',
+  },
+];
+---
+<LuxuryLayout title="Luxury AI Solutions — Marblism Partners" description="AI employees built for businesses where reputation is everything. White-glove Marblism implementation for luxury SMBs.">
+
+  <!-- NAV -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="/" class="back">← Back to Marblism Partners</a>
+      <a href={REFERRAL_URL} class="btn btn-gold" target="_blank" rel="noopener">Get your AI team</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">Luxury Business Solutions</p>
+      <div class="divider"></div>
+      <h1>Your brand is your reputation.<br /><em>Protect it with AI.</em></h1>
+      <p class="lead">
+        Marblism AI Employees work behind the scenes — handling calls, contracts, outreach,
+        and content — so every client touchpoint reflects the standard your brand demands.
+      </p>
+      <div class="hero-ctas">
+        <a href={REFERRAL_URL} class="btn btn-gold" target="_blank" rel="noopener">Start with a free consult</a>
+        <a href="#verticals" class="btn btn-outline">Explore your industry →</a>
+      </div>
+      <p class="guarantee">7-day money-back guarantee &nbsp;·&nbsp; Live in 48 hours &nbsp;·&nbsp; No contracts</p>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <div class="orb"></div>
+      <div class="grid-lines"></div>
+    </div>
+  </section>
+
+  <!-- PROMISE STRIP -->
+  <div class="promise-strip">
+    <div class="container promise-inner">
+      <span>"An AI team that never breaks character."</span>
+      <span class="sep">—</span>
+      <span>"Outbound that reads like a personal introduction."</span>
+      <span class="sep">—</span>
+      <span>"Contracts reviewed before you sign, every time."</span>
+    </div>
+  </div>
+
+  <!-- VERTICALS -->
+  <section id="verticals" class="verticals">
+    <div class="container">
+      <p class="eyebrow">Your industry</p>
+      <div class="divider"></div>
+      <h2>Built for businesses where<br />every detail matters.</h2>
+      <p class="section-sub">Select your industry for a tailored breakdown of which AI Employees work hardest for you.</p>
+      <div class="vgrid">
+        {verticals.map((v) => (
+          <a href={v.slug} class="vcard">
+            <div class="vicon">{v.icon}</div>
+            <div class="vcontent">
+              <span class="vlabel">{v.label}</span>
+              <h3>{v.tagline}</h3>
+              <p>{v.desc}</p>
+              <span class="vlink">See full breakdown →</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY PARTNER -->
+  <section class="why">
+    <div class="container why-grid">
+      <div>
+        <p class="eyebrow">Why us</p>
+        <div class="divider"></div>
+        <h2>You get more than a software subscription.</h2>
+        <p>
+          As a strategic Marblism partner, we handle every step of the implementation — naming your AI team,
+          training them on your brand voice, integrating with your existing tools, and tuning them on real usage.
+        </p>
+        <p>
+          Most luxury clients are live within 48 hours, with their AI team already handling calls, mail,
+          and outreach while they focus on the work that actually requires them.
+        </p>
+        <a href={`mailto:${PARTNER_EMAIL}`} class="btn btn-gold" style="margin-top:8px">Schedule a discovery call</a>
+      </div>
+      <div class="why-cards">
+        {[
+          { n: '48h', label: 'Average time to go live' },
+          { n: '40%', label: 'Lifetime partner commission' },
+          { n: '7d', label: 'Money-back guarantee' },
+          { n: '6', label: 'AI Employees included' },
+        ].map((s) => (
+          <div class="stat-card">
+            <div class="stat-n">{s.n}</div>
+            <div class="stat-l">{s.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="fcta">
+    <div class="container">
+      <p class="eyebrow">Next step</p>
+      <div class="divider"></div>
+      <h2>Ready to hire your AI team?</h2>
+      <p class="fcta-sub">
+        Start your Marblism trial through my partner link and I'll personally onboard your AI employees —
+        at no extra cost.
+      </p>
+      <div class="fcta-btns">
+        <a href={REFERRAL_URL} class="btn btn-gold" target="_blank" rel="noopener">Start free trial →</a>
+        <a href={`mailto:${PARTNER_EMAIL}`} class="btn btn-outline">Email {PARTNER_EMAIL}</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="lx-footer">
+    <div class="container lx-footer-inner">
+      <a href="/"><img src="/logo.svg" height="20" alt="Marblism Partners" /></a>
+      <p>© {new Date().getFullYear()} Marblism Partners — Independent strategic partner.</p>
+      <div class="lx-links">
+        <a href="/">Home</a>
+        <a href={REFERRAL_URL} target="_blank" rel="noopener">Get Marblism</a>
+      </div>
+    </div>
+  </footer>
+
+</LuxuryLayout>
+
+<style>
+  /* NAV */
+  .nav { border-bottom: 1px solid var(--lx-line); padding: 16px 0; }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+  .back { color: var(--lx-muted); font-size: 0.88rem; transition: color .15s; }
+  .back:hover { color: var(--lx-white); text-decoration: none; }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    padding: 120px 0 96px;
+    overflow: hidden;
+  }
+  .hero .container { position: relative; z-index: 2; max-width: 760px; }
+  .lead { font-size: 1.15rem; color: var(--lx-white-2); max-width: 580px; margin: 18px 0; }
+  em { font-style: italic; color: var(--lx-gold); }
+  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; margin: 32px 0 20px; }
+  .guarantee { font-size: 0.82rem; color: var(--lx-muted); letter-spacing: 0.04em; }
+  .hero-art {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .orb {
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,169,110,0.08) 0%, transparent 70%);
+    right: -100px; top: -80px;
+  }
+  .grid-lines {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 80% 20%, black 30%, transparent 80%);
+  }
+
+  /* PROMISE STRIP */
+  .promise-strip {
+    border-top: 1px solid var(--lx-line);
+    border-bottom: 1px solid var(--lx-line);
+    background: var(--lx-bg-2);
+    padding: 18px 0;
+  }
+  .promise-inner {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--lx-white-2);
+  }
+  .sep { color: var(--lx-gold); opacity: 0.5; }
+
+  /* VERTICALS */
+  .verticals { background: var(--lx-bg-2); }
+  .section-sub { color: var(--lx-white-2); font-size: 1.05rem; max-width: 560px; margin: 0 0 48px; }
+  .vgrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .vgrid > *:nth-child(4) { grid-column: 1 / 2; }
+  .vgrid > *:nth-child(5) { grid-column: 2 / 3; }
+  .vcard {
+    display: flex;
+    flex-direction: column;
+    background: var(--lx-bg-3);
+    border: 1px solid var(--lx-line);
+    border-radius: var(--lx-radius);
+    padding: 28px;
+    transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+    cursor: pointer;
+    color: inherit;
+  }
+  .vcard:hover {
+    border-color: var(--lx-gold-line);
+    transform: translateY(-3px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.40), 0 0 0 1px var(--lx-gold-line);
+    text-decoration: none;
+  }
+  .vicon { font-size: 1.4rem; margin-bottom: 18px; color: var(--lx-gold); opacity: 0.8; }
+  .vlabel {
+    display: block;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--lx-gold);
+    margin-bottom: 8px;
+  }
+  .vcard h3 { font-size: 1.2rem; color: var(--lx-white); margin-bottom: 10px; }
+  .vcard p { font-size: 0.9rem; color: var(--lx-white-2); margin-bottom: 18px; flex: 1; }
+  .vlink { font-size: 0.85rem; color: var(--lx-gold); font-weight: 500; }
+
+  /* WHY */
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .why-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .stat-card {
+    background: var(--lx-bg-2);
+    border: 1px solid var(--lx-line);
+    border-radius: var(--lx-radius);
+    padding: 24px;
+  }
+  .stat-n {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.4rem;
+    font-weight: 600;
+    color: var(--lx-gold);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-l { font-size: 0.85rem; color: var(--lx-white-2); }
+
+  /* FCTA */
+  .fcta {
+    background: var(--lx-bg-2);
+    border-top: 1px solid var(--lx-line);
+    text-align: center;
+  }
+  .fcta .container { max-width: 620px; }
+  .fcta .eyebrow, .fcta .divider { margin-left: auto; margin-right: auto; }
+  .fcta-sub { font-size: 1.05rem; color: var(--lx-white-2); margin-bottom: 32px; }
+  .fcta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+  /* FOOTER */
+  .lx-footer { border-top: 1px solid var(--lx-line); padding: 28px 0 48px; }
+  .lx-footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  .lx-footer p { margin: 0; font-size: 0.82rem; color: var(--lx-muted); }
+  .lx-links { display: flex; gap: 20px; font-size: 0.88rem; }
+
+  @media (max-width: 900px) {
+    .vgrid { grid-template-columns: 1fr 1fr; }
+    .vgrid > *:nth-child(4), .vgrid > *:nth-child(5) { grid-column: auto; }
+    .why-grid { grid-template-columns: 1fr; gap: 40px; }
+  }
+  @media (max-width: 600px) {
+    .vgrid { grid-template-columns: 1fr; }
+    .promise-inner { flex-direction: column; text-align: center; }
+    .sep { display: none; }
+  }
+</style>

@@ -1,0 +1,256 @@
+---
+import LuxuryLayout from '../../layouts/LuxuryLayout.astro';
+import { REFERRAL_URL, PARTNER_EMAIL } from '../../data/referral';
+
+export interface Employee {
+  name: string;
+  role: string;
+  fit: string;  // why this employee fits this vertical
+  grad: string;
+}
+
+export interface Pain {
+  before: string;
+  after: string;
+}
+
+export interface Props {
+  industry: string;           // "Luxury Real Estate"
+  slug: string;               // "real-estate"
+  tagline: string;            // "Never miss a qualified buyer"
+  subhead: string;            // longer description
+  accent?: string;            // optional gold override per industry
+  employees: Employee[];      // 2–4 most relevant
+  pains: Pain[];              // before/after table
+  cta: string;                // "Book your AI real estate team"
+  seoTitle?: string;
+  seoDesc?: string;
+}
+
+const {
+  industry,
+  tagline,
+  subhead,
+  employees,
+  pains,
+  cta,
+  accent = '#c9a96e',
+  seoTitle,
+  seoDesc,
+} = Astro.props;
+---
+<LuxuryLayout
+  title={seoTitle ?? `${industry} AI Solutions — Marblism Partners`}
+  description={seoDesc ?? `AI employees for ${industry.toLowerCase()} businesses. ${tagline}. White-glove Marblism implementation.`}
+  accent={accent}
+>
+
+  <!-- NAV -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="/luxury" class="back">← All luxury industries</a>
+      <a href={REFERRAL_URL} class="btn btn-gold" target="_blank" rel="noopener">Start free trial</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-art" aria-hidden="true">
+      <div class="orb"></div>
+      <div class="lines"></div>
+    </div>
+    <div class="container hero-inner">
+      <p class="eyebrow">{industry}</p>
+      <div class="divider"></div>
+      <h1>{tagline}</h1>
+      <p class="lead">{subhead}</p>
+      <div class="hero-ctas">
+        <a href={REFERRAL_URL} class="btn btn-gold" target="_blank" rel="noopener">{cta}</a>
+        <a href={`mailto:${PARTNER_EMAIL}`} class="btn btn-outline">Get a free AI audit</a>
+      </div>
+      <p class="guarantee">7-day money-back &nbsp;·&nbsp; Live in 48 hours &nbsp;·&nbsp; No contracts</p>
+    </div>
+  </section>
+
+  <!-- AI TEAM -->
+  <section class="team">
+    <div class="container">
+      <p class="eyebrow">Your AI team</p>
+      <div class="divider"></div>
+      <h2>Meet the employees who work your business around the clock.</h2>
+      <div class="emp-grid">
+        {employees.map((e) => (
+          <div class="emp-card">
+            <div class="emp-avatar" style={`background: ${e.grad}`}>{e.name[0]}</div>
+            <div class="emp-info">
+              <h3>{e.name}</h3>
+              <span class="emp-role">{e.role}</span>
+              <p>{e.fit}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- BEFORE / AFTER -->
+  <section class="ba">
+    <div class="container">
+      <p class="eyebrow">What changes</p>
+      <div class="divider"></div>
+      <h2>The first 30 days with your AI team.</h2>
+      <div class="ba-table">
+        <div class="ba-col ba-before">
+          <div class="ba-head">Before</div>
+          {pains.map((p) => (
+            <div class="ba-row">
+              <span class="ba-icon">✕</span>
+              <span>{p.before}</span>
+            </div>
+          ))}
+        </div>
+        <div class="ba-arrow" aria-hidden="true">→</div>
+        <div class="ba-col ba-after">
+          <div class="ba-head">After</div>
+          {pains.map((p) => (
+            <div class="ba-row">
+              <span class="ba-icon ok">✓</span>
+              <span>{p.after}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="fcta">
+    <div class="container">
+      <p class="eyebrow">Get started</p>
+      <div class="divider" style="margin:16px auto 28px;"></div>
+      <h2>Ready to clock them in?</h2>
+      <p class="fcta-sub">
+        Start your Marblism trial through my partner link. I'll personally onboard your AI team,
+        train them on your brand, and integrate with your tools — at no extra cost.
+      </p>
+      <div class="fcta-btns">
+        <a href={REFERRAL_URL} class="btn btn-gold" target="_blank" rel="noopener">{cta} →</a>
+        <a href={`mailto:${PARTNER_EMAIL}`} class="btn btn-outline">Email {PARTNER_EMAIL}</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="lx-footer">
+    <div class="container lx-footer-inner">
+      <a href="/"><img src="/logo.svg" height="20" alt="Marblism Partners" /></a>
+      <p>© {new Date().getFullYear()} Marblism Partners — Independent strategic partner.</p>
+      <div class="lx-links">
+        <a href="/luxury">Luxury Solutions</a>
+        <a href={REFERRAL_URL} target="_blank" rel="noopener">Get Marblism</a>
+      </div>
+    </div>
+  </footer>
+
+</LuxuryLayout>
+
+<style>
+  .nav { border-bottom: 1px solid var(--lx-line); padding: 16px 0; }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+  .back { color: var(--lx-muted); font-size: 0.88rem; transition: color .15s; }
+  .back:hover { color: var(--lx-white); text-decoration: none; }
+
+  .hero {
+    position: relative;
+    padding: 110px 0 88px;
+    overflow: hidden;
+  }
+  .hero-inner { position: relative; z-index: 2; max-width: 720px; }
+  .hero-art { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+  .orb {
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,169,110,0.10) 0%, transparent 70%);
+    right: -60px; top: -60px;
+  }
+  .lines {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 80% 20%, black 20%, transparent 70%);
+  }
+  .lead { font-size: 1.15rem; color: var(--lx-white-2); max-width: 580px; margin: 16px 0; }
+  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; margin: 28px 0 18px; }
+  .guarantee { font-size: 0.82rem; color: var(--lx-muted); letter-spacing: 0.04em; }
+
+  .team { background: var(--lx-bg-2); }
+  .emp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin-top: 40px; }
+  .emp-card {
+    display: flex; gap: 16px; align-items: flex-start;
+    background: var(--lx-bg-3);
+    border: 1px solid var(--lx-line);
+    border-radius: var(--lx-radius);
+    padding: 22px;
+    transition: border-color .2s, transform .2s;
+  }
+  .emp-card:hover { border-color: var(--lx-gold-line); transform: translateY(-2px); }
+  .emp-avatar {
+    width: 48px; height: 48px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-weight: 700; font-size: 1.2rem;
+  }
+  .emp-info h3 { font-size: 1.1rem; color: var(--lx-white); margin-bottom: 2px; }
+  .emp-role {
+    display: inline-block; font-size: 0.72rem; text-transform: uppercase;
+    letter-spacing: 0.12em; color: var(--lx-gold); margin-bottom: 8px;
+  }
+  .emp-info p { font-size: 0.9rem; margin: 0; }
+
+  .ba { }
+  .ba-table {
+    display: flex; gap: 16px; align-items: flex-start;
+    margin-top: 40px;
+  }
+  .ba-col { flex: 1; }
+  .ba-head {
+    font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.14em;
+    font-weight: 600; padding: 10px 16px;
+    border-radius: 8px 8px 0 0;
+  }
+  .ba-before .ba-head { background: rgba(255,255,255,0.04); color: var(--lx-muted); }
+  .ba-after .ba-head { background: rgba(201,169,110,0.1); color: var(--lx-gold); }
+  .ba-row {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--lx-line);
+    font-size: 0.92rem;
+    color: var(--lx-white-2);
+  }
+  .ba-before .ba-row { background: rgba(255,255,255,0.02); }
+  .ba-after .ba-row { background: rgba(201,169,110,0.04); }
+  .ba-icon { font-size: 0.8rem; padding-top: 2px; color: var(--lx-muted); flex-shrink: 0; }
+  .ba-icon.ok { color: #4ade80; }
+  .ba-arrow {
+    font-size: 1.8rem; color: var(--lx-gold); opacity: 0.5;
+    padding-top: 44px; flex-shrink: 0;
+  }
+
+  .fcta { background: var(--lx-bg-2); border-top: 1px solid var(--lx-line); text-align: center; }
+  .fcta .container { max-width: 620px; }
+  .fcta-sub { font-size: 1.05rem; color: var(--lx-white-2); margin-bottom: 32px; }
+  .fcta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+  .lx-footer { border-top: 1px solid var(--lx-line); padding: 28px 0 48px; }
+  .lx-footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  .lx-footer p { margin: 0; font-size: 0.82rem; color: var(--lx-muted); }
+  .lx-links { display: flex; gap: 20px; font-size: 0.88rem; }
+
+  @media (max-width: 720px) {
+    .ba-table { flex-direction: column; }
+    .ba-arrow { display: none; }
+    .ba-col { width: 100%; }
+  }
+</style>
