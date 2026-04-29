@@ -1,0 +1,211 @@
+#!/usr/bin/env node
+/**
+ * Marblism Partners — Maintenance Mode Toggle
+ * ─────────────────────────────────────────────
+ * Usage:
+ *   node scripts/toggle-maintenance.js           ← toggles current state
+ *   node scripts/toggle-maintenance.js on        ← force maintenance ON
+ *   node scripts/toggle-maintenance.js off       ← force maintenance OFF (go live)
+ *   node scripts/toggle-maintenance.js status    ← print current mode
+ *
+ * After switching, the script builds, commits, and pushes automatically.
+ */
+
+import { execSync } from 'child_process';
+import { readFileSync, writeFileSync } from 'fs';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const ROOT = join(__dirname, '..');
+const PAGES = join(ROOT, 'src', 'pages');
+
+// ─────────────────────────────────────────────────────────────────────────────
+// LIVE PAGE CONTENT
+// ─────────────────────────────────────────────────────────────────────────────
+
+const LIVE = {
+
+  'index.astro': `---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import Services from '../components/Services.astro';
+import UseCases from '../components/UseCases.astro';
+import Process from '../components/Process.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+---
+<Layout>
+  <Nav />
+  <main>
+    <Hero />
+    <Services />
+    <UseCases />
+    <Process />
+    <Contact />
+  </main>
+  <Footer />
+</Layout>
+`,
+
+  'luxury.astro': `---
+import LuxuryLayout from '../layouts/LuxuryLayout.astro';
+import { REFERRAL_URL, PARTNER_EMAIL } from '../data/referral';
+
+const verticals = [
+  { slug: '/real-estate',     label: 'Luxury Real Estate',            tagline: 'Never miss a qualified buyer',           desc: 'Linda reviews contracts. Rachel answers every call. Stan sources off-market prospects.',                                        icon: '🏛️' },
+  { slug: '/medspa',          label: 'Medical Aesthetics',            tagline: 'Fill your chair, protect your brand',    desc: 'Rachel books consultations 24/7. Eva sends pre-care and follow-up. Penny drives organic discovery.',                          icon: '✦'  },
+  { slug: '/salon',           label: 'Luxury Salons & Spas',          tagline: 'White-glove service starts before they walk in', desc: 'Rachel handles every booking request. Sonny builds your social presence. Penny tells your story.',              icon: '◈'  },
+  { slug: '/wealth',          label: 'Wealth & Financial Advisory',   tagline: 'Your AI team handles the detail work',   desc: 'Eva manages your inbox and meeting prep. Linda reviews agreements. Stan sources ideal prospects.',                           icon: '◆'  },
+  { slug: '/interior-design', label: 'Interior Design & Architecture',tagline: 'Less admin. More creating.',             desc: 'Eva drafts proposals and client replies. Stan surfaces high-value leads. Penny builds editorial authority.',                  icon: '⬡'  },
+];
+---
+<LuxuryLayout title="Luxury AI Solutions — Marblism Partners" description="AI employees built for businesses where reputation is everything.">
+  <header class="nav"><div class="container nav-inner"><a href="/" class="back">← Back to Marblism Partners</a><a href={REFERRAL_URL} class="btn btn-gold" target="_blank" rel="noopener">Get your AI team</a></div></header>
+  <section class="hero"><div class="container"><p class="eyebrow">Luxury Business Solutions</p><div class="divider"></div><h1>Your brand is your reputation.<br /><em>Protect it with AI.</em></h1><p class="lead">Marblism AI Employees work behind the scenes — handling calls, contracts, outreach, and content — so every client touchpoint reflects the standard your brand demands.</p><div class="hero-ctas"><a href={REFERRAL_URL} class="btn btn-gold" target="_blank" rel="noopener">Start with a free consult</a><a href="#verticals" class="btn btn-outline">Explore your industry →</a></div><p class="guarantee">7-day money-back guarantee · Live in 48 hours · No contracts</p></div></section>
+  <div class="promise-strip"><div class="container promise-inner"><span>"An AI team that never breaks character."</span><span class="sep">—</span><span>"Outbound that reads like a personal introduction."</span><span class="sep">—</span><span>"Contracts reviewed before you sign, every time."</span></div></div>
+  <section id="verticals" class="verticals"><div class="container"><p class="eyebrow">Your industry</p><div class="divider"></div><h2>Built for businesses where<br />every detail matters.</h2><p class="section-sub">Select your industry for a tailored breakdown of which AI Employees work hardest for you.</p><div class="vgrid">{verticals.map((v) => (<a href={v.slug} class="vcard"><div class="vicon">{v.icon}</div><div class="vcontent"><span class="vlabel">{v.label}</span><h3>{v.tagline}</h3><p>{v.desc}</p><span class="vlink">See full breakdown →</span></div></a>))}</div></div></section>
+  <footer class="lx-footer"><div class="container lx-footer-inner"><a href="/"><img src="/logo.svg" height="20" alt="Marblism Partners" /></a><p>© {new Date().getFullYear()} Marblism Partners</p><div class="lx-links"><a href="/">Home</a><a href={REFERRAL_URL} target="_blank" rel="noopener">Get Marblism</a></div></div></footer>
+</LuxuryLayout>
+`,
+
+  'real-estate.astro':    verticalPage('real-estate'),
+  'medspa.astro':         verticalPage('medspa'),
+  'salon.astro':          verticalPage('salon'),
+  'wealth.astro':         verticalPage('wealth'),
+  'interior-design.astro':verticalPage('interior-design'),
+};
+
+function verticalPage(slug) {
+  const map = {
+    'real-estate':    { industry: 'Luxury Real Estate',             tagline: "Never lose a qualified buyer to a missed call.",         subhead: "In luxury real estate, response time and contract precision are the difference between a closed deal and a referral you never get back.",  cta: 'Hire your real estate AI team',  employees: [{ name:'Rachel',role:'Receptionist',fit:"Answers every inbound call, qualifies buyers and sellers, and books showings directly on your calendar — including evenings and weekends.",grad:'linear-gradient(135deg,#10b981,#14b8a6)' },{ name:'Stan',role:'Lead Generation',fit:"Identifies off-market prospects, absentee owners, and portfolio sellers. Sends personalized outreach that reads like a personal introduction.",grad:'linear-gradient(135deg,#7c3aed,#3b82f6)' },{ name:'Linda',role:'Legal Assistant',fit:"Reviews purchase agreements, addenda, and disclosure packets. Flags unusual clauses and translates legalese in minutes.",grad:'linear-gradient(135deg,#3b82f6,#7c3aed)' },{ name:'Eva',role:'Executive Assistant',fit:"Manages your inbox, drafts follow-up emails, prepares showing briefs, and keeps transaction timelines organized.",grad:'linear-gradient(135deg,#14b8a6,#06b6d4)' }], pains:[{ before:"Missed buyer calls become closed deals for a competitor",after:"Rachel answers every call, qualifies the lead, books the showing" },{ before:"2 hours reviewing each purchase agreement for risks",after:"Linda flags unusual clauses in under 5 minutes" },{ before:"Cold outreach to owners feels generic, gets ignored",after:"Stan sends personalized introductions that get replies" },{ before:"Follow-up emails pile up while you're on the road",after:"Eva drafts replies in your voice, ready to send in one click" },{ before:"Transaction deadlines get missed in the email chaos",after:"Eva tracks every timeline and surfaces what needs attention today" }] },
+    'medspa':         { industry: 'Medical Aesthetics & Med Spas',   tagline: "Fill your chair. Protect your reputation.",               subhead: "Luxury med spa clients expect discretion, precision, and instant responsiveness. Your AI team delivers all three.",                                   cta: 'Hire your med spa AI team',      employees: [{ name:'Rachel',role:'Receptionist',fit:"Books consultation requests the moment they come in — day or night. Qualifies each inquiry, confirms appointments, and sends pre-care instructions.",grad:'linear-gradient(135deg,#10b981,#14b8a6)' },{ name:'Eva',role:'Executive Assistant',fit:"Sends post-treatment follow-ups in your brand's voice, manages rebooking reminders, handles vendor emails.",grad:'linear-gradient(135deg,#14b8a6,#06b6d4)' },{ name:'Penny',role:'SEO Blog Writer',fit:"Publishes educational content around your treatments that ranks in search and brings in clients who already understand your services.",grad:'linear-gradient(135deg,#f59e0b,#ec4899)' },{ name:'Sonny',role:'Community Manager',fit:"Manages your Instagram and social presence, responds to DMs, and turns story engagement into booked consultations.",grad:'linear-gradient(135deg,#f97316,#ec4899)' }], pains:[{ before:"Consultation requests come in after hours and go cold",after:"Rachel books them instantly, 24/7, with qualifying questions built in" },{ before:"Post-treatment follow-up is inconsistent or skipped",after:"Eva sends personalized follow-ups at the right intervals, in your voice" },{ before:"Your website doesn't rank for high-intent treatment searches",after:"Penny publishes SEO content that brings in pre-qualified clients" },{ before:"DMs pile up and leads go cold on Instagram",after:"Sonny manages engagement and routes warm leads to your booking page" },{ before:"Rebooking relies on the client remembering to call",after:"Eva sends timely rebooking reminders that feel personal, not automated" }] },
+    'salon':          { industry: 'Luxury Salons & Spas',            tagline: "White-glove service starts before they walk in the door.", subhead: "Your clients chose you for the experience. Your AI team makes sure that experience starts the moment they reach out.",                             cta: 'Hire your salon AI team',        employees: [{ name:'Rachel',role:'Receptionist',fit:"Takes every booking request, matches clients to the right stylist, confirms appointments, and sends reminders — in the warm tone your brand demands.",grad:'linear-gradient(135deg,#10b981,#14b8a6)' },{ name:'Sonny',role:'Community Manager',fit:"Keeps your Instagram active with curated content, responds to comments and DMs, and turns followers into first-time bookings.",grad:'linear-gradient(135deg,#f97316,#ec4899)' },{ name:'Penny',role:'SEO Blog Writer',fit:"Writes editorial-quality content that ranks in local search and establishes your salon as the authority in your market.",grad:'linear-gradient(135deg,#f59e0b,#ec4899)' },{ name:'Eva',role:'Executive Assistant',fit:"Handles supplier emails, product reorder requests, staff communications, and the administrative overflow.",grad:'linear-gradient(135deg,#14b8a6,#06b6d4)' }], pains:[{ before:"Missed calls during busy hours mean lost bookings",after:"Rachel captures every request, even when you're fully in the zone" },{ before:"Social stays dormant for weeks when things get busy",after:"Sonny keeps your presence consistent without you thinking about it" },{ before:"Clients drift to a competitor between appointments",after:"Rachel sends rebooking reminders at exactly the right moment" },{ before:"No time to write the content that would drive new traffic",after:"Penny publishes polished, SEO-optimized posts on a regular schedule" },{ before:"Admin emails pile up and slow down your operations",after:"Eva handles supplier and vendor correspondence so you stay on the floor" }] },
+    'wealth':         { industry: 'Wealth & Financial Advisory',     tagline: "Your clients deserve your full attention. Give it to them.", subhead: "High-net-worth clients don't tolerate slow responses or sloppy agreements. Your AI team handles the detail work.",                              cta: 'Hire your advisory AI team',     employees: [{ name:'Eva',role:'Executive Assistant',fit:"Triages your inbox, drafts client responses in your voice, prepares meeting briefings, and maintains the correspondence standards your HNW clients expect.",grad:'linear-gradient(135deg,#14b8a6,#06b6d4)' },{ name:'Linda',role:'Legal Assistant',fit:"Reviews advisory agreements, engagement letters, NDAs, and service contracts before they reach your desk. Flags non-standard terms.",grad:'linear-gradient(135deg,#3b82f6,#7c3aed)' },{ name:'Stan',role:'Lead Generation',fit:"Identifies prospective clients that match your ideal profile and crafts introductions that open conversations without feeling like a sales pitch.",grad:'linear-gradient(135deg,#7c3aed,#3b82f6)' },{ name:'Rachel',role:'Receptionist',fit:"Handles inbound inquiry calls, gathers preliminary information, and ensures every caller is treated with the discretion your practice is known for.",grad:'linear-gradient(135deg,#10b981,#14b8a6)' }], pains:[{ before:"3 hours a day managing inbox, most of it low-value",after:"Eva surfaces only what needs your decision — everything else is handled" },{ before:"Reviewing every agreement yourself before it's signed",after:"Linda pre-screens and flags anything that warrants your attention" },{ before:"Outreach to ideal prospects feels time-consuming and inconsistent",after:"Stan runs a steady, personalized prospecting cadence in the background" },{ before:"Inbound calls interrupt deep work with the wrong callers",after:"Rachel qualifies every inbound and only escalates genuine opportunities" },{ before:"Meeting prep is rushed because admin takes too long",after:"Eva prepares a clean briefing doc before every client call" }] },
+    'interior-design':{ industry: 'Interior Design & Architecture',  tagline: "Less admin. More creating.",                             subhead: "Your best work happens when you're deep in a project, not chasing proposals, vetting vendors, and answering the same client questions.",        cta: 'Hire your design AI team',       employees: [{ name:'Eva',role:'Executive Assistant',fit:"Drafts project proposals, responds to client emails in your voice, manages vendor follow-ups, and coordinates with contractors.",grad:'linear-gradient(135deg,#14b8a6,#06b6d4)' },{ name:'Stan',role:'Lead Generation',fit:"Identifies high-value project opportunities and initiates warm introductions with developers and referral networks in your target market.",grad:'linear-gradient(135deg,#7c3aed,#3b82f6)' },{ name:'Penny',role:'SEO Blog Writer',fit:"Publishes editorial-quality design content that builds your search presence and positions your studio as the authority before a prospect picks up the phone.",grad:'linear-gradient(135deg,#f59e0b,#ec4899)' },{ name:'Linda',role:'Legal Assistant',fit:"Reviews client contracts, contractor agreements, and licensing terms before you sign. Catches scope-creep clauses, payment terms, and IP language.",grad:'linear-gradient(135deg,#3b82f6,#7c3aed)' }], pains:[{ before:"Drafting proposals takes half a day per prospect",after:"Eva produces a polished first draft from your brief in minutes" },{ before:"New project leads are inconsistent and reactive",after:"Stan runs proactive outreach to the right developers and referral contacts" },{ before:"Your work isn't searchable — leads come only by word of mouth",after:"Penny publishes regularly and builds an organic discovery channel" },{ before:"Client emails pile up while you're deep in a project",after:"Eva keeps correspondence on track without breaking your concentration" },{ before:"Contractor agreements reviewed under time pressure",after:"Linda flags risk clauses before you commit, every time" }] },
+  };
+  const p = map[slug];
+  return `---
+import VerticalPage from '../components/verticals/VerticalPage.astro';
+---
+<VerticalPage
+  industry="${p.industry}"
+  slug="${slug}"
+  tagline="${p.tagline}"
+  subhead="${p.subhead}"
+  cta="${p.cta}"
+  employees={${JSON.stringify(p.employees)}}
+  pains={${JSON.stringify(p.pains)}}
+/>
+`;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// MAINTENANCE REDIRECT TEMPLATE
+// ─────────────────────────────────────────────────────────────────────────────
+
+const MAINTENANCE_INDEX = `---
+import Maintenance from './maintenance.astro';
+---
+<Maintenance />
+`;
+
+const MAINTENANCE_REDIRECT = `---
+import RedirectToMaintenance from '../layouts/RedirectToMaintenance.astro';
+---
+<RedirectToMaintenance />
+`;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// HELPERS
+// ─────────────────────────────────────────────────────────────────────────────
+
+function read(file) {
+  try { return readFileSync(join(PAGES, file), 'utf8'); } catch { return ''; }
+}
+
+function write(file, content) {
+  writeFileSync(join(PAGES, file), content, 'utf8');
+}
+
+function isMaintenanceMode() {
+  return read('index.astro').includes('maintenance.astro');
+}
+
+function run(cmd) {
+  try {
+    execSync(cmd, { cwd: ROOT, stdio: 'inherit' });
+  } catch (err) {
+    console.error(`\n❌  Command failed: ${cmd}`);
+    process.exit(1);
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// SWITCH FUNCTIONS
+// ─────────────────────────────────────────────────────────────────────────────
+
+function enableMaintenance() {
+  console.log('\n🔧  Enabling maintenance mode…\n');
+  write('index.astro', MAINTENANCE_INDEX);
+  for (const file of Object.keys(LIVE).filter(f => f !== 'index.astro')) {
+    write(file, MAINTENANCE_REDIRECT);
+  }
+  console.log('✓  Pages updated → maintenance');
+}
+
+function enableLive() {
+  console.log('\n🚀  Enabling live mode…\n');
+  for (const [file, content] of Object.entries(LIVE)) {
+    write(file, content);
+  }
+  console.log('✓  Pages updated → live');
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// MAIN
+// ─────────────────────────────────────────────────────────────────────────────
+
+const arg = process.argv[2]?.toLowerCase();
+const currently = isMaintenanceMode();
+
+if (arg === 'status') {
+  console.log(`\nCurrent mode: ${currently ? '🔧  MAINTENANCE' : '🚀  LIVE'}\n`);
+  process.exit(0);
+}
+
+let goMaintenance;
+if (arg === 'on')       goMaintenance = true;
+else if (arg === 'off') goMaintenance = false;
+else                    goMaintenance = !currently;   // toggle
+
+if (goMaintenance === currently) {
+  console.log(`\nAlready in ${currently ? 'maintenance' : 'live'} mode — nothing to do.\n`);
+  process.exit(0);
+}
+
+if (goMaintenance) {
+  enableMaintenance();
+} else {
+  enableLive();
+}
+
+// Build
+console.log('\n📦  Building…\n');
+run('npm run build');
+console.log('✓  Build passed');
+
+// Commit + push
+const label = goMaintenance ? 'maintenance' : 'live';
+const msg = goMaintenance
+  ? 'chore: enable maintenance mode'
+  : 'chore: disable maintenance mode — go live';
+
+console.log('\n📤  Committing and pushing…\n');
+run('git add .');
+run(`git -c user.email="pdmelendez-hub@users.noreply.github.com" -c user.name="pdmelendez-hub" commit -m "${msg}"`);
+run('git push');
+
+console.log(`\n✅  Done! Site is now in ${label.toUpperCase()} mode.\n`);
+console.log(`    Cloudflare will redeploy automatically within ~1 min.\n`);
