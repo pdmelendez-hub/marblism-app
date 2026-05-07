@@ -10,6 +10,10 @@ Quick handoff so future-you can resume cold.
 - **Domain**: `marblism.app` already added to your Cloudflare account
 - **Status**: Site is built, committed, pushed. **Not yet deployed to Cloudflare Pages.**
 
+## Related links
+
+- **Prototype 1 (dev)**: https://offthegridgetaways.com/dev/bt-prototype-1/
+
 ## Where we left off
 
 The site is fully designed and aligned with Marblism's brand:
